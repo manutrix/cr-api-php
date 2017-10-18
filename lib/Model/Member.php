@@ -76,7 +76,7 @@ class Member implements ArrayAccess
         'current_rank' => 'int',
         'previous_rank' => 'int',
         'clan_chest_crowns' => 'int',
-        'role_name' => '\Swagger\Client\Model\Roles',
+        'role_name' => 'string',
         'score' => 'int'
     ];
 
@@ -159,8 +159,26 @@ class Member implements ArrayAccess
         return self::$getters;
     }
 
+    const ROLE_NAME_MEMBER = 'Member';
+    const ROLE_NAME_LEADER = 'Leader';
+    const ROLE_NAME_ELDER = 'Elder';
+    const ROLE_NAME_CO_LEADER = 'Co-Leader';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     * @return string[]
+     */
+    public function getRoleNameAllowableValues()
+    {
+        return [
+            self::ROLE_NAME_MEMBER,
+            self::ROLE_NAME_LEADER,
+            self::ROLE_NAME_ELDER,
+            self::ROLE_NAME_CO_LEADER,
+        ];
+    }
     
 
     /**
@@ -197,6 +215,11 @@ class Member implements ArrayAccess
     public function listInvalidProperties()
     {
         $invalid_properties = [];
+        $allowed_values = ["Member", "Leader", "Elder", "Co-Leader"];
+        if (!in_array($this->container['role_name'], $allowed_values)) {
+            $invalid_properties[] = "invalid value for 'role_name', must be one of 'Member', 'Leader', 'Elder', 'Co-Leader'.";
+        }
+
         return $invalid_properties;
     }
 
@@ -208,6 +231,10 @@ class Member implements ArrayAccess
      */
     public function valid()
     {
+        $allowed_values = ["Member", "Leader", "Elder", "Co-Leader"];
+        if (!in_array($this->container['role_name'], $allowed_values)) {
+            return false;
+        }
         return true;
     }
 
@@ -424,7 +451,7 @@ class Member implements ArrayAccess
 
     /**
      * Gets role_name
-     * @return \Swagger\Client\Model\Roles
+     * @return string
      */
     public function getRoleName()
     {
@@ -433,11 +460,15 @@ class Member implements ArrayAccess
 
     /**
      * Sets role_name
-     * @param \Swagger\Client\Model\Roles $role_name
+     * @param string $role_name
      * @return $this
      */
     public function setRoleName($role_name)
     {
+        $allowed_values = array('Member', 'Leader', 'Elder', 'Co-Leader');
+        if (!is_null($role_name) && (!in_array($role_name, $allowed_values))) {
+            throw new \InvalidArgumentException("Invalid value for 'role_name', must be one of 'Member', 'Leader', 'Elder', 'Co-Leader'");
+        }
         $this->container['role_name'] = $role_name;
 
         return $this;

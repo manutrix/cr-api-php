@@ -75,7 +75,7 @@ class Stats implements ArrayAccess
         'challenge_max_wins' => 'int',
         'challenge_cards_won' => 'int',
         'level' => 'int',
-        'favorite_card' => '\Swagger\Client\Model\CardNames'
+        'favorite_card' => 'string'
     ];
 
     public static function swaggerTypes()
@@ -151,8 +151,20 @@ class Stats implements ArrayAccess
         return self::$getters;
     }
 
+    const FAVORITE_CARD_BOWLER = 'bowler';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     * @return string[]
+     */
+    public function getFavoriteCardAllowableValues()
+    {
+        return [
+            self::FAVORITE_CARD_BOWLER,
+        ];
+    }
     
 
     /**
@@ -187,6 +199,11 @@ class Stats implements ArrayAccess
     public function listInvalidProperties()
     {
         $invalid_properties = [];
+        $allowed_values = ["bowler"];
+        if (!in_array($this->container['favorite_card'], $allowed_values)) {
+            $invalid_properties[] = "invalid value for 'favorite_card', must be one of 'bowler'.";
+        }
+
         return $invalid_properties;
     }
 
@@ -198,6 +215,10 @@ class Stats implements ArrayAccess
      */
     public function valid()
     {
+        $allowed_values = ["bowler"];
+        if (!in_array($this->container['favorite_card'], $allowed_values)) {
+            return false;
+        }
         return true;
     }
 
@@ -393,7 +414,7 @@ class Stats implements ArrayAccess
 
     /**
      * Gets favorite_card
-     * @return \Swagger\Client\Model\CardNames
+     * @return string
      */
     public function getFavoriteCard()
     {
@@ -402,11 +423,15 @@ class Stats implements ArrayAccess
 
     /**
      * Sets favorite_card
-     * @param \Swagger\Client\Model\CardNames $favorite_card
+     * @param string $favorite_card
      * @return $this
      */
     public function setFavoriteCard($favorite_card)
     {
+        $allowed_values = array('bowler');
+        if (!is_null($favorite_card) && (!in_array($favorite_card, $allowed_values))) {
+            throw new \InvalidArgumentException("Invalid value for 'favorite_card', must be one of 'bowler'");
+        }
         $this->container['favorite_card'] = $favorite_card;
 
         return $this;

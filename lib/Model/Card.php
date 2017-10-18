@@ -66,8 +66,8 @@ class Card implements ArrayAccess
       * @var string[]
       */
     protected static $swaggerTypes = [
-        'name' => '\Swagger\Client\Model\CardNames',
-        'rarity' => '\Swagger\Client\Model\Rarity',
+        'name' => 'string',
+        'rarity' => 'string',
         'level' => 'int',
         'count' => 'int',
         'required_for_upgrade' => 'string',
@@ -139,8 +139,38 @@ class Card implements ArrayAccess
         return self::$getters;
     }
 
+    const NAME_BOWLER = 'bowler';
+    const RARITY_RARE = 'rare';
+    const RARITY_EPIC = 'epic';
+    const RARITY_COMMON = 'common';
+    const RARITY_LEGENDARY = 'legendary';
     
 
+    
+    /**
+     * Gets allowable values of the enum
+     * @return string[]
+     */
+    public function getNameAllowableValues()
+    {
+        return [
+            self::NAME_BOWLER,
+        ];
+    }
+    
+    /**
+     * Gets allowable values of the enum
+     * @return string[]
+     */
+    public function getRarityAllowableValues()
+    {
+        return [
+            self::RARITY_RARE,
+            self::RARITY_EPIC,
+            self::RARITY_COMMON,
+            self::RARITY_LEGENDARY,
+        ];
+    }
     
 
     /**
@@ -172,6 +202,16 @@ class Card implements ArrayAccess
     public function listInvalidProperties()
     {
         $invalid_properties = [];
+        $allowed_values = ["bowler"];
+        if (!in_array($this->container['name'], $allowed_values)) {
+            $invalid_properties[] = "invalid value for 'name', must be one of 'bowler'.";
+        }
+
+        $allowed_values = ["rare", "epic", "common", "legendary"];
+        if (!in_array($this->container['rarity'], $allowed_values)) {
+            $invalid_properties[] = "invalid value for 'rarity', must be one of 'rare', 'epic', 'common', 'legendary'.";
+        }
+
         return $invalid_properties;
     }
 
@@ -183,13 +223,21 @@ class Card implements ArrayAccess
      */
     public function valid()
     {
+        $allowed_values = ["bowler"];
+        if (!in_array($this->container['name'], $allowed_values)) {
+            return false;
+        }
+        $allowed_values = ["rare", "epic", "common", "legendary"];
+        if (!in_array($this->container['rarity'], $allowed_values)) {
+            return false;
+        }
         return true;
     }
 
 
     /**
      * Gets name
-     * @return \Swagger\Client\Model\CardNames
+     * @return string
      */
     public function getName()
     {
@@ -198,11 +246,15 @@ class Card implements ArrayAccess
 
     /**
      * Sets name
-     * @param \Swagger\Client\Model\CardNames $name
+     * @param string $name
      * @return $this
      */
     public function setName($name)
     {
+        $allowed_values = array('bowler');
+        if (!is_null($name) && (!in_array($name, $allowed_values))) {
+            throw new \InvalidArgumentException("Invalid value for 'name', must be one of 'bowler'");
+        }
         $this->container['name'] = $name;
 
         return $this;
@@ -210,7 +262,7 @@ class Card implements ArrayAccess
 
     /**
      * Gets rarity
-     * @return \Swagger\Client\Model\Rarity
+     * @return string
      */
     public function getRarity()
     {
@@ -219,11 +271,15 @@ class Card implements ArrayAccess
 
     /**
      * Sets rarity
-     * @param \Swagger\Client\Model\Rarity $rarity
+     * @param string $rarity
      * @return $this
      */
     public function setRarity($rarity)
     {
+        $allowed_values = array('rare', 'epic', 'common', 'legendary');
+        if (!is_null($rarity) && (!in_array($rarity, $allowed_values))) {
+            throw new \InvalidArgumentException("Invalid value for 'rarity', must be one of 'rare', 'epic', 'common', 'legendary'");
+        }
         $this->container['rarity'] = $rarity;
 
         return $this;
