@@ -72,7 +72,7 @@ class DefaultApi
     {
         if ($apiClient === null) {
             $apiClient = new ApiClient();
-            $apiClient->getConfig()->setHost('https://api.cr-api.com/');
+            $apiClient->getConfig()->setHost('https://api.cr-api.com');
         }
 
         $this->apiClient = $apiClient;
