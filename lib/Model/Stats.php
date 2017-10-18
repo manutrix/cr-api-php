@@ -152,6 +152,7 @@ class Stats implements ArrayAccess
     }
 
     const FAVORITE_CARD_BOWLER = 'bowler';
+    const FAVORITE_CARD_PRINCE = 'prince';
     
 
     
@@ -163,6 +164,7 @@ class Stats implements ArrayAccess
     {
         return [
             self::FAVORITE_CARD_BOWLER,
+            self::FAVORITE_CARD_PRINCE,
         ];
     }
     
@@ -199,9 +201,9 @@ class Stats implements ArrayAccess
     public function listInvalidProperties()
     {
         $invalid_properties = [];
-        $allowed_values = ["bowler"];
+        $allowed_values = ["bowler", "prince"];
         if (!in_array($this->container['favorite_card'], $allowed_values)) {
-            $invalid_properties[] = "invalid value for 'favorite_card', must be one of 'bowler'.";
+            $invalid_properties[] = "invalid value for 'favorite_card', must be one of 'bowler', 'prince'.";
         }
 
         return $invalid_properties;
@@ -215,7 +217,7 @@ class Stats implements ArrayAccess
      */
     public function valid()
     {
-        $allowed_values = ["bowler"];
+        $allowed_values = ["bowler", "prince"];
         if (!in_array($this->container['favorite_card'], $allowed_values)) {
             return false;
         }
@@ -428,9 +430,9 @@ class Stats implements ArrayAccess
      */
     public function setFavoriteCard($favorite_card)
     {
-        $allowed_values = array('bowler');
+        $allowed_values = array('bowler', 'prince');
         if (!is_null($favorite_card) && (!in_array($favorite_card, $allowed_values))) {
-            throw new \InvalidArgumentException("Invalid value for 'favorite_card', must be one of 'bowler'");
+            throw new \InvalidArgumentException("Invalid value for 'favorite_card', must be one of 'bowler', 'prince'");
         }
         $this->container['favorite_card'] = $favorite_card;
 
