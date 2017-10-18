@@ -139,26 +139,8 @@ class Card implements ArrayAccess
         return self::$getters;
     }
 
-    const RARITY_RARE = 'rare';
-    const RARITY_EPIC = 'epic';
-    const RARITY_COMMON = 'common';
-    const RARITY_LEGENDARY = 'legendary';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     * @return string[]
-     */
-    public function getRarityAllowableValues()
-    {
-        return [
-            self::RARITY_RARE,
-            self::RARITY_EPIC,
-            self::RARITY_COMMON,
-            self::RARITY_LEGENDARY,
-        ];
-    }
     
 
     /**
@@ -190,11 +172,6 @@ class Card implements ArrayAccess
     public function listInvalidProperties()
     {
         $invalid_properties = [];
-        $allowed_values = ["rare", "epic", "common", "legendary"];
-        if (!in_array($this->container['rarity'], $allowed_values)) {
-            $invalid_properties[] = "invalid value for 'rarity', must be one of 'rare', 'epic', 'common', 'legendary'.";
-        }
-
         return $invalid_properties;
     }
 
@@ -206,10 +183,6 @@ class Card implements ArrayAccess
      */
     public function valid()
     {
-        $allowed_values = ["rare", "epic", "common", "legendary"];
-        if (!in_array($this->container['rarity'], $allowed_values)) {
-            return false;
-        }
         return true;
     }
 
@@ -251,10 +224,6 @@ class Card implements ArrayAccess
      */
     public function setRarity($rarity)
     {
-        $allowed_values = array('rare', 'epic', 'common', 'legendary');
-        if (!is_null($rarity) && (!in_array($rarity, $allowed_values))) {
-            throw new \InvalidArgumentException("Invalid value for 'rarity', must be one of 'rare', 'epic', 'common', 'legendary'");
-        }
         $this->container['rarity'] = $rarity;
 
         return $this;

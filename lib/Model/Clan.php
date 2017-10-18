@@ -127,26 +127,8 @@ class Clan implements ArrayAccess
         return self::$getters;
     }
 
-    const ROLE_MEMBER = 'Member';
-    const ROLE_LEADER = 'Leader';
-    const ROLE_ELDER = 'Elder';
-    const ROLE_CO_LEADER = 'Co-Leader';
     
 
-    
-    /**
-     * Gets allowable values of the enum
-     * @return string[]
-     */
-    public function getRoleAllowableValues()
-    {
-        return [
-            self::ROLE_MEMBER,
-            self::ROLE_LEADER,
-            self::ROLE_ELDER,
-            self::ROLE_CO_LEADER,
-        ];
-    }
     
 
     /**
@@ -175,11 +157,6 @@ class Clan implements ArrayAccess
     public function listInvalidProperties()
     {
         $invalid_properties = [];
-        $allowed_values = ["Member", "Leader", "Elder", "Co-Leader"];
-        if (!in_array($this->container['role'], $allowed_values)) {
-            $invalid_properties[] = "invalid value for 'role', must be one of 'Member', 'Leader', 'Elder', 'Co-Leader'.";
-        }
-
         return $invalid_properties;
     }
 
@@ -191,10 +168,6 @@ class Clan implements ArrayAccess
      */
     public function valid()
     {
-        $allowed_values = ["Member", "Leader", "Elder", "Co-Leader"];
-        if (!in_array($this->container['role'], $allowed_values)) {
-            return false;
-        }
         return true;
     }
 
@@ -257,10 +230,6 @@ class Clan implements ArrayAccess
      */
     public function setRole($role)
     {
-        $allowed_values = array('Member', 'Leader', 'Elder', 'Co-Leader');
-        if (!is_null($role) && (!in_array($role, $allowed_values))) {
-            throw new \InvalidArgumentException("Invalid value for 'role', must be one of 'Member', 'Leader', 'Elder', 'Co-Leader'");
-        }
         $this->container['role'] = $role;
 
         return $this;
